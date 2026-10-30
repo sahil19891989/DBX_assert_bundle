@@ -1,0 +1,20 @@
+resources:
+  jobs:
+    bronze_layer:
+      name: "bronze_layer"
+      tasks:
+        - task_key: bronze_layer
+          environment_key: bronze_layer_env
+          spark_python_task:
+            python_file: ../src/medallian_arci/Bronze_Layer.py
+            parameters:
+              - "--catalog"
+              - "${var.catalog}"
+              - "--schema"
+              - "${var.schema}"
+
+      # Serverless compute for jobs: no cluster definition needed.
+      environments:
+        - environment_key: bronze_layer_env
+          spec:
+            environment_version: "2"
